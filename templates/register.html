@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('.static', filename='css/login.css')}}">
+
+{% endblock %}
+
+{% block content %}
+<body>
+   <div class="text-center">
+     <h2>Cadastro por time</h2>
+
+        <form class="form-signin text-center" action="/register/" method="post">
+             <div class="checkbox mb-3">
+                <label for="inputGroup" class="sr-only">Nome</label>
+                <input name="string" type="string" id="inputGroup" class="form-control" placeholder="Nome do Grupo" required>
+           </div>
+
+           <div class="checkbox mb-3">
+                <label for="inputNumber" class="sr-only">Nome</label>
+                <input name="number" type="number" id="inputNumber" class="form-control" placeholder="Número de pessoas no grupo" required>
+           </div>
+
+               <button type="{{url_for('answers')}}" class="btn btn-primary">PRÓXIMO</button>
+       </form>
+
+       {% if number > 0 %}
+       <h2> Number = {{number}}</h2>
+       {% for value in range(0,number) %}
+           <form class="form-signin text-center" action="/login/" method="post">
+               <div class="checkbox mb-3">
+                    <label for="inputName{{value}}" class="sr-only">Nome</label>
+                    <input name="name" type="name" id="inputName{{value}}" class="form-control" placeholder="Name{{value}}" required>
+                </div>
+                    <div class="checkbox mb-3">
+                    <label for="inputEmail{{value}}" class="sr-only">Email</label>
+                    <input name="email" type="email" id="inputEmail{{value}}" class="form-control" placeholder="Email{{value}}" required>
+                </div>
+           </form>
+        {% endfor %}
+
+       {% endif %}
+    </div>
+</body>
+{% endblock %}
