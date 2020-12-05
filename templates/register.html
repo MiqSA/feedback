@@ -3,43 +3,44 @@
 {% block styles %}
     {{super()}}
     <link rel="stylesheet" href="{{url_for('.static', filename='css/login.css')}}">
-
 {% endblock %}
 
 {% block content %}
 <body>
    <div class="text-center">
-     <h2>Cadastro por time</h2>
-
+        {% if number <= 0 %}
+       <h2>Cadastro por grupo</h2>
         <form class="form-signin text-center" action="/register/" method="post">
              <div class="checkbox mb-3">
                 <label for="inputGroup" class="sr-only">Nome</label>
-                <input name="string" type="string" id="inputGroup" class="form-control" placeholder="Nome do Grupo" required>
+                <input name="group" type="string" id="inputGroup" class="form-control" placeholder="Nome do grupo" required>
            </div>
 
            <div class="checkbox mb-3">
                 <label for="inputNumber" class="sr-only">Nome</label>
                 <input name="number" type="number" id="inputNumber" class="form-control" placeholder="Número de pessoas no grupo" required>
            </div>
-
-               <button type="{{url_for('answers')}}" class="btn btn-primary">PRÓXIMO</button>
+               <button class="btn btn-primary">CADASTRAR GRUPO</button>
        </form>
+       {% endif %}
 
        {% if number > 0 %}
-       <h2> Number = {{number}}</h2>
+       <h2> Grupo: {{group}}</h2>
+       <h3>Preencha os campos sobre as pessoas do grupo</h3>
        {% for value in range(0,number) %}
-           <form class="form-signin text-center" action="/login/" method="post">
+           <form class="form-signin text-center" action="/answers/{{number}}" method="post">
                <div class="checkbox mb-3">
                     <label for="inputName{{value}}" class="sr-only">Nome</label>
-                    <input name="name" type="name" id="inputName{{value}}" class="form-control" placeholder="Name{{value}}" required>
+                    <input name="name{{value}}" type="name" id="inputName{{value}}" class="form-control" placeholder="Name" required>
                 </div>
                     <div class="checkbox mb-3">
                     <label for="inputEmail{{value}}" class="sr-only">Email</label>
-                    <input name="email" type="email" id="inputEmail{{value}}" class="form-control" placeholder="Email{{value}}" required>
+                    <input name="email{{value}}" type="email" id="inputEmail{{value}}" class="form-control" placeholder="Email" required>
                 </div>
-           </form>
+                <br>
         {% endfor %}
-
+            <button class="btn btn-primary">PEDIR FEEDBACK</button>
+        </form>
        {% endif %}
     </div>
 </body>
